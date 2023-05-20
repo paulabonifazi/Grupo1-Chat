@@ -79,12 +79,12 @@ public class Prueba {
 				e.printStackTrace();
 			}
 
-//	        try {
-//				dos.writeObject(name2);
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+	        try {
+				dos.writeObject(name2);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 	}
 
