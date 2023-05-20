@@ -17,6 +17,7 @@ import controladores.ControladorModoEscucha;
 
 public class VistaEspera extends JFrame implements IVistaModoEscucha, ActionListener {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private ActionListener actionListener =null;
 	private JButton btnVolver;

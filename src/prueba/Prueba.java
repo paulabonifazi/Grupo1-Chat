@@ -18,7 +18,7 @@ public class Prueba {
 		
 		
 		String IP = "localhost";
-		int puerto = 141;
+		int puerto = 1411;
 		Socket s;
 		Socket s2;
 		
@@ -79,12 +79,12 @@ public class Prueba {
 				e.printStackTrace();
 			}
 
-	        try {
-				dos.writeObject(name2);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//	        try {
+//				dos.writeObject(name2);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 
 	}
 
