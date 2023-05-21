@@ -19,7 +19,7 @@ import java.util.Map;
 public class Server extends Thread{
 	
 	private ServerSocket serverSocket;
-	private int puerto = 1411;
+	private int puerto = 1412;
 //	private DataInputStream dis;
 //    private DataOutputStream dos;
 	//hasmap de nickname con socket
@@ -52,31 +52,36 @@ public class Server extends Thread{
 	            String nicknameReceptor;
 	            Conexion conexion;
 	            Object object;
-	            
+	            System.out.println("ENTREEEEEEEEEEEEEEEEEEEEEE");
+	            int cont=0;
 	            try 
 	            {
-	            	while(true) {
+//	            	while(true) {
+	            	while(cont<2) {
 	            		s = serverSocket.accept();
-		                
+		                cont+=1;
 	 	               // System.out.println(s.isConnected());
 	 	                 
-//	 	                DataInputStream dis = new DataInputStream(s.getInputStream());
-//	 	                DataOutputStream dos = new DataOutputStream(s.getOutputStream());
-	 	               ObjectInputStream dis = new ObjectInputStream(s.getInputStream());
-	 	               ObjectOutputStream dos = new ObjectOutputStream(s.getOutputStream());
+	 	                DataInputStream dis = new DataInputStream(s.getInputStream());
+	 	                DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+//	 	               ObjectInputStream dis = new ObjectInputStream(s.getInputStream());
+//	 	               ObjectOutputStream dos = new ObjectOutputStream(s.getOutputStream());
 	 	                
-	 	                //nickname = dis.readUTF();
+	 	                nickname = dis.readUTF();
 	 	                //nicknameReceptor = dis.readUTF();
 	 	               
-	 	               object = dis.readObject();
+	 	               //object = dis.readObject();
 	 	              
-	 	               System.out.println(object);
-	 	               nickname = (String) object;
+//	 	               System.out.println(object);
+//	 	               nickname = (String) object;
+	 	               System.out.println(nickname);
 	 	               
-	 	                conexion = new Conexion(s,nickname);
-	 	                this.clientes.put(nickname,conexion);
-	 	                
-	 	                this.lista.add(conexion);
+//	 	               if (this.clientes.containsKey(nickname)!= true) {
+	 	            	   conexion = new Conexion(s,nickname);
+	 	            	   this.clientes.put(nickname,conexion);
+	 	            	   
+	 	            	   this.lista.add(conexion);        	   
+//	 	               }
 	 	                
 	 	                
 	 	                //System.out.println(this.clientes);
@@ -92,9 +97,6 @@ public class Server extends Thread{
 //	 	                this.conectionHandler = new ConectionHandler(s, dis, dos,this.vistaChat);
 	 	                
 	 	                //this.conectionHandler.start();
-	 	                if (this.lista.size()>0) {
-	 	                	System.out.println(this.lista);
-	 	                }
 	 	                  
 	            	}
 	            	
@@ -103,8 +105,8 @@ public class Server extends Thread{
 	                serverSocket.close();
 	                e.printStackTrace();
 	            }
-//	            if(s != null)
-//	            	s.close();
+	            if(s != null)
+	            	s.close();
 	          
 	    }
     
@@ -130,59 +132,65 @@ public class Server extends Thread{
 		String name,receptor;
 		int i;
 		Socket socket;
-//		DataInputStream dis;
-//        DataOutputStream dos;
-        ObjectInputStream dis;
-        ObjectOutputStream dos;
+		DataInputStream dis;
+        DataOutputStream dos;
+//        ObjectInputStream dis;
+//        ObjectOutputStream dos;
         
          
 		//while(this.terminar == false && this.s.isClosed() != true) {
 		while(this.terminar == false) {
+			//System.out.println("entro");
 			i=0;
-			System.out.println(this.lista.size());
-			if (this.lista.size()>0) {
-				while(i < this.lista.size() ) {
-//				System.out.println("entro");
-//				if (i==lista.size())
-//					i=0;
-//				else {
-					socket = this.lista.get(i).getSocket();
-					name = this.lista.get(i).getNickname();
-					receptor = this.lista.get(i).getNicknameReceptor();
-					//System.out.println(socket);
-					System.out.println(this.lista);
+			System.out.println(this.lista.size()+" "+ this.lista);
+			while(i < this.lista.size()) {
+				socket = this.lista.get(i).getSocket();
+				name = this.lista.get(i).getNickname();
+				receptor = this.lista.get(i).getNicknameReceptor();
+				System.out.println(socket);
+				  
+				try {
+					dis = new DataInputStream(socket.getInputStream());
 					
-					try {
-						//dis = new DataInputStream(socket.getInputStream());
-						dis = new ObjectInputStream(socket.getInputStream());
-						
-						//recibido = dis.readUTF();
-						recibido = (String) dis.readObject();
-						
-						if(recibido != null){ 
-							if(receptor != null){
-								
-//							dos = new DataOutputStream(this.clientes.get(receptor).getSocket().getOutputStream()); 
-								//dos.writeUTF(recibido);
-								dos = new ObjectOutputStream(this.clientes.get(receptor).getSocket().getOutputStream()); 
-								dos.writeObject(recibido);
-								
-							}else {					// no hay receptor, hay que iniciar el chat
-								this.creaChat(name, receptor);
-								//this.creaChat(receptor, name);
-							}
-						}else {}
-						
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					//dis = new ObjectInputStream(socket.getInputStream());
+					
+					if (dis.available()>0) {
+						recibido = dis.readUTF();
+						System.out.println("RECIBIDO: "+recibido);
+						stop();
 					}
-					i++;
-				}		
+					else {
+						recibido=null;
+//						System.out.println("entre");
+					}
+					//recibido = (String) dis.readObject();
+					
+//					if(recibido != null){ 
+//						if(receptor != null){
+//							
+////							dos = new DataOutputStream(this.clientes.get(receptor).getSocket().getOutputStream()); 
+//							//dos.writeUTF(recibido);
+////							dos = new ObjectOutputStream(this.clientes.get(receptor).getSocket().getOutputStream()); 
+////							dos.writeObject(recibido);
+//							
+//						}else {					// no hay receptor, hay que iniciar el chat
+//							System.out.println("Crea Chat");
+//							this.creaChat(name, receptor);
+//							//this.creaChat(receptor, name);
+//						}
+//					}else {}
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+//				catch (ClassNotFoundException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+				i++;
 			}
+			i=0;
 			
 //			try {
 //				recibido = dis.readUTF();

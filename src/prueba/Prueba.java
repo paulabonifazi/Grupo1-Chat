@@ -18,13 +18,14 @@ public class Prueba {
 		
 		
 		String IP = "localhost";
-		int puerto = 1411;
+		int puerto = 1412;
 		Socket s;
 		Socket s2;
 		
 		Cliente cliente = new Cliente("Juancho",123,"1321");
-		ObjectOutputStream dos = null;
-		ObjectOutputStream dos2;
+		//ObjectOutputStream dos = null;
+		//ObjectOutputStream dos2;
+		DataOutputStream dos2=null;
 		
 		String name = "tuvieja";
 		String name2 = "mivieja";
@@ -33,15 +34,15 @@ public class Prueba {
 			s = new Socket(IP,puerto);
 			
 //			DataInputStream dis = new DataInputStream(s.getInputStream());
-//	        DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+	        DataOutputStream dos = new DataOutputStream(s.getOutputStream());
 			
 			
 	        //ObjectInputStream dis = new ObjectInputStream(s.getInputStream());
-            dos = new ObjectOutputStream(s.getOutputStream());
+           // dos = new ObjectOutputStream(s.getOutputStream());
             
             
-            dos.writeObject(name);
-	        //dos.writeUTF("tuvieja");
+           // dos.writeObject(name);
+	        dos.writeUTF("mivieja");
 	     
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -59,15 +60,15 @@ public class Prueba {
 				s2 = new Socket(IP,puerto);
 				
 //				DataInputStream dis = new DataInputStream(s.getInputStream());
-//		        DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+		        dos2 = new DataOutputStream(s2.getOutputStream());
 				
 				
 		        //ObjectInputStream dis = new ObjectInputStream(s.getInputStream());
-	            dos2 = new ObjectOutputStream(s2.getOutputStream());
+	            //dos2 = new ObjectOutputStream(s2.getOutputStream());
 	            
 	            
-	            dos2.writeObject(name2);
-		        //dos.writeUTF("tuvieja");
+	            //dos2.writeObject(name2);
+		        dos2.writeUTF("tuvieja");
 		     
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block
@@ -80,7 +81,13 @@ public class Prueba {
 			}
 
 	        try {
-				dos.writeObject(name2);
+	        	int cont=0;
+				//dos.writeObject(name2);
+	        	while(cont<200) {
+	        		
+	        		dos2.writeUTF(name2);
+	        		cont++;
+	        	}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
