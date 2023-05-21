@@ -76,12 +76,12 @@ public class Server extends Thread{
 //	 	               nickname = (String) object;
 	 	               System.out.println(nickname);
 	 	               
-//	 	               if (this.clientes.containsKey(nickname)!= true) {
+	 	               if (this.clientes.containsKey(nickname)!= true) {
 	 	            	   conexion = new Conexion(s,nickname);
 	 	            	   this.clientes.put(nickname,conexion);
 	 	            	   
 	 	            	   this.lista.add(conexion);        	   
-//	 	               }
+	 	               }
 	 	                
 	 	                
 	 	                //System.out.println(this.clientes);
@@ -105,8 +105,8 @@ public class Server extends Thread{
 	                serverSocket.close();
 	                e.printStackTrace();
 	            }
-	            if(s != null)
-	            	s.close();
+//	            if(s != null)
+//	            	s.close();
 	          
 	    }
     
