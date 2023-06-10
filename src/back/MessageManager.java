@@ -24,7 +24,20 @@ public class MessageManager {
 		this.s = s; 
 	}
      
-    public void enviaMensaje(String mensaje) {
+//private void chequeaServer(Socket s) {
+//		this.s = s;
+//		this.dis = this.s.getInputStream();
+//		this.dos = this.s.getOutputStream();
+//		
+//	}
+//	private void chequeaServer() {
+//		
+//		this.dis = this.s.getInputStream();
+//		this.dos = this.s.getOutputStream();
+//		
+//	}
+	
+	public void enviaMensaje(String mensaje) {
 
     	if(this.s.isClosed() != true) {
     		try {
