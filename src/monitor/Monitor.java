@@ -7,16 +7,16 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class Monitor extends Thread{
-	
+public class Monitor extends Thread {
+
 	private static Monitor instance = null;
-	private static int puertoMonitor=11132;
+	private static int puertoMonitor = 11132;
 	private static ServerSocket serverSocket;
 	private static int principal = 100;
-	private static int nroSig=0;
+	private static int nroSig = 0;
 	private ArrayList<Socket> listaSockets = new ArrayList<Socket>();
 	private Socket socketPrincipal = null;
-	
+
 	private Monitor() {
 
 		try {
@@ -25,7 +25,7 @@ public class Monitor extends Thread{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static Monitor getInstance() {
 
 		if (instance == null)
@@ -33,7 +33,7 @@ public class Monitor extends Thread{
 
 		return instance;
 	}
-	
+
 //	public static void main(String args[]) {
 //		try {
 //			serverSocket = new ServerSocket(puertoMonitor);
@@ -68,22 +68,26 @@ public class Monitor extends Thread{
 //		}
 //	}
 	public void agregarSocket(Socket s) throws IOException {
+
 		DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+
+		// dos.writeUTF("PUERTO");
+		dos.writeUTF(Integer.toString(this.principal + this.nroSig)); // PUERTO
+		// .writeUTF("IP");
+		dos.writeUTF("localhost"); // IP
+
 		if (this.socketPrincipal == null) {
 			this.socketPrincipal = s;
-			//DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+			// DataOutputStream dos = new DataOutputStream(s.getOutputStream());
 			dos.writeUTF("PRINCIPAL");
 		}
-		dos.writeUTF("PUERTO");
-		dos.writeUTF(Integer.toString(this.principal+this.nroSig));
-		dos.writeUTF("IP");
-		dos.writeUTF("");
+
 		this.listaSockets.add(s);
 	}
 
 	public void cambiaServerPrincipal() {
-		
-		if(this.listaSockets.size() > 0) {
+
+		if (this.listaSockets.size() > 0) {
 			this.socketPrincipal = this.listaSockets.get(0);
 		}
 	}
@@ -123,8 +127,7 @@ public class Monitor extends Thread{
 	public ServerSocket getServerSocket() {
 		return serverSocket;
 	}
-	
-	
+
 //	public void run() {
 //		super.run();
 //		while (true) {
