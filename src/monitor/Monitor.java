@@ -7,20 +7,16 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import back.Conexion;
-import server.DataCliente;
-
-public class Monitor extends Thread {
-
-	private static int NUMERO_PUERTO_SIGUIENTE_SERVER = 100;
+public class Monitor extends Thread{
+	
 	private static Monitor instance = null;
-	private int puertoMonitor = 200;
-	// private InfoServer serverPrincipal = null;
-	private Socket socketPrincipal = null;
-	// private ArrayList<InfoServer> listaServers = new ArrayList<InfoServer>();
+	private static int puertoMonitor=11132;
+	private static ServerSocket serverSocket;
+	private static int principal = 100;
+	private static int nroSig=0;
 	private ArrayList<Socket> listaSockets = new ArrayList<Socket>();
-	private ServerSocket serverSocket;
-
+	private Socket socketPrincipal = null;
+	
 	private Monitor() {
 
 		try {
@@ -29,7 +25,7 @@ public class Monitor extends Thread {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public static Monitor getInstance() {
 
 		if (instance == null)
@@ -37,13 +33,51 @@ public class Monitor extends Thread {
 
 		return instance;
 	}
-
+	
+//	public static void main(String args[]) {
+//		try {
+//			serverSocket = new ServerSocket(puertoMonitor);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		while (true) {
+//			
+//			try {
+//				Socket socket = serverSocket.accept();
+//				
+//				DataInputStream dis = new DataInputStream(socket.getInputStream());
+//				DataOutputStream dos = new DataOutputStream (socket.getOutputStream());
+//				
+//				if (principal == 0) {
+//					String num = Integer.toString(4444);
+//					dos.writeUTF(num);
+//					principal = 1;
+//					System.out.println("principal: "+principal);
+//				}
+//				else {
+//					String num = Integer.toString(4445+nroSig);
+//					dos.writeUTF(num);
+//					System.out.println("puerto enviado secundario: "+4445+nroSig);
+//					nroSig++;
+//				}
+//				
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 	public void agregarSocket(Socket s) throws IOException {
+		DataOutputStream dos = new DataOutputStream(s.getOutputStream());
 		if (this.socketPrincipal == null) {
 			this.socketPrincipal = s;
-			DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+			//DataOutputStream dos = new DataOutputStream(s.getOutputStream());
 			dos.writeUTF("PRINCIPAL");
 		}
+		dos.writeUTF("PUERTO");
+		dos.writeUTF(Integer.toString(this.principal+this.nroSig));
+		dos.writeUTF("IP");
+		dos.writeUTF("");
 		this.listaSockets.add(s);
 	}
 
@@ -89,5 +123,30 @@ public class Monitor extends Thread {
 	public ServerSocket getServerSocket() {
 		return serverSocket;
 	}
-
+	
+	
+//	public void run() {
+//		super.run();
+//		while (true) {
+//			try {
+//				Socket socket = serverSocket.accept();
+//				
+//				DataInputStream dis = new DataInputStream(socket.getInputStream());
+//				DataOutputStream dos = new DataOutputStream (socket.getOutputStream());
+//				
+//				if (this.principal == 0) {
+//					dos.write(4444);
+//				}
+//				else {
+//					dos.write(4445+nroSig);
+//					nroSig++;
+//				}
+//				
+//				
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		
+//	}
 }

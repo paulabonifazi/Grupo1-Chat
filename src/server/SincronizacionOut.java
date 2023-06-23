@@ -28,7 +28,7 @@ public class SincronizacionOut {
 	private static ObjectOutputStream outPut;
 	private static ObjectInputStream input;
 	private static Server server;
-	private static SincronizacionIn sincronizacionIn = null;
+	//private static SincronizacionIn sincronizacionIn = null;
 
 	public SincronizacionOut(Server server) {
 		super();
@@ -80,19 +80,19 @@ public class SincronizacionOut {
 //		sincronizacionIn.setServerSocket(serverSocket);
 //	}
 
-	public static SincronizacionIn getSincronizacionIn() {
-		return sincronizacionIn;
-	}
-
-	public static Socket getSocket() {
-		return socketAnterior;
-	}
-
-	public void start() {
-		sincronizacionIn = new SincronizacionIn(server);
-		sincronizacionIn.setServerSocket(serverSocket);
-		sincronizacionIn.start();
-	}
+//	public static SincronizacionIn getSincronizacionIn() {
+//		return sincronizacionIn;
+//	}
+//
+//	public static Socket getSocket() {
+//		return socketAnterior;
+//	}
+//
+//	public void start() {
+//		sincronizacionIn = new SincronizacionIn(server);
+//		sincronizacionIn.setServerSocket(serverSocket);
+//		sincronizacionIn.start();
+//	}
 
 //	private void seteaClientes() {
 //
