@@ -62,7 +62,7 @@ public class ConectionCliente extends Thread {
 		String mensaje;
 		char bandera;
 
-		while (this.terminar == false) {
+		while (Server.isTerminar()==false) {
 
 			try {
 				if (dis.available() > 0) {

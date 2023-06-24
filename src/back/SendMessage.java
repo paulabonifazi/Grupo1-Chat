@@ -12,6 +12,8 @@ import front.IVistaChat;
 public class SendMessage {
 	
 	IVistaChat vista;
+	private Conexion conexion;
+
 //	final DataInputStream dis;
 //    final DataOutputStream dos;
 //    final Socket s;
@@ -25,12 +27,16 @@ public class SendMessage {
 //		this.s = s; 
 //	}
      
-    public void enviaMensaje(String mensaje) {
+    public SendMessage(Conexion conexion) {
+    	this.conexion = conexion;
+    }
+
+	public void enviaMensaje(String mensaje) {
 
     	//if(this.s.isClosed() != true) {
     	//if(Conexion.getInstance().getSocket().isClosed() != true) {
     		try {
-    			Conexion.getInstance().getDos().writeUTF("0"+Cifrado.encriptar(mensaje));
+    			conexion.getDos().writeUTF("0"+Cifrado.encriptar(mensaje));
     			//this.dos.writeUTF("0"+Cifrado.encriptar(mensaje));
 
     		} catch (IOException e) { 
@@ -49,7 +55,7 @@ public class SendMessage {
     	//if(this.s.isClosed() != true) {
     	//if(Conexion.getInstance().getSocket().isClosed() != true) {
     		try {
-    			Conexion.getInstance().getDos().writeUTF("1"+mensaje);
+    			conexion.getDos().writeUTF("1"+mensaje);
     			//this.dos.writeUTF("1"+mensaje);
     		} catch (IOException e) { 
     			e.printStackTrace();
@@ -64,7 +70,7 @@ public class SendMessage {
     	//if(this.s.isClosed() != true) {
     	//if(Conexion.getInstance().getSocket().isClosed() != true) {
     		try {
-    			Conexion.getInstance().getDos().writeUTF("2"+mensaje);
+    			conexion.getDos().writeUTF("2"+mensaje);
     			//this.dos.writeUTF("2"+mensaje);
     		} catch (IOException e) { 
     			e.printStackTrace();

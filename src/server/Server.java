@@ -63,6 +63,7 @@ public class Server extends Thread {
 					
 					ConectionCliente conection = new ConectionCliente(s, dataCliente, this.clientes, dis, dos, this.chats,this.sincronizacion);
 					conection.setCont(controlador);
+					
 					conection.start();
 					dos.writeUTF("1REGISTRADOCORRECTAMENTE");
 					controlador.appendListaConectados(dataCliente.toString());

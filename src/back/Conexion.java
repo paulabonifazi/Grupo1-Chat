@@ -30,7 +30,7 @@ public class Conexion {
 //	private DataInputStream dis2;
 //	private DataOutputStream dos2;
     
-	private Conexion () {
+	Conexion () {
 		
 	}
 	
@@ -42,16 +42,16 @@ public class Conexion {
 //			this.dos = dos;
 //	}
 	
-	public static Conexion getInstance() {
-		
-		if(instance == null) {
-			instance = new Conexion();
-//			s = s;
-//			dis = dis;
-//			dos = dos;
-		}
-			return instance;
-	}
+//	public static Conexion getInstance() {
+//		
+//		if(instance == null) {
+//			instance = new Conexion();
+////			s = s;
+////			dis = dis;
+////			dos = dos;
+//		}
+//			return instance;
+//	}
 	
 //public void agregarSocket(String ip, int puerto) throws IOException{
 //		

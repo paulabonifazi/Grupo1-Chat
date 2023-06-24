@@ -20,20 +20,14 @@ public class ReceiveMessage extends Thread {
 //	final Socket s;
 	private boolean terminar = false;
 	String receptor = "";
+	private Conexion conexion;
 
 	
-	public ReceiveMessage() {
+	public ReceiveMessage(Conexion conexion) {
 		super();
-		
+		this.conexion = conexion;
 	}
 	
-
-//	public ReceiveMessage(ControladorVistaInicial contInicial2, ControladorVistaChat contChat2,
-//			ControladorVistaConecta contConecta2) {
-//		this.contChat = contChat2;
-//		this.contConecta = contConecta2;
-//		this.contInicial = contInicial2;
-//	}
 
 	public void run() {
 
@@ -43,7 +37,7 @@ public class ReceiveMessage extends Thread {
 
 		while (this.terminar == false) {
 			try {
-				mensaje = Conexion.getInstance().getDis().readUTF();
+				mensaje = conexion.getDis().readUTF();
 //				mensaje = dis.readUTF();
 				comando = mensaje.charAt(0);
 				mensaje = mensaje.substring(1);
@@ -78,11 +72,6 @@ public class ReceiveMessage extends Thread {
 							break;
 						}
 
-					}else if(comando == '3') {
-						if(mensaje.equals("ECHO") == true) {
-							System.out.println("Recibimos ECHO");
-							Conexion.getInstance().setEcho(true);
-						}
 					}else
 						if(comando == '4')
 							System.out.println(mensaje);
@@ -106,9 +95,9 @@ public class ReceiveMessage extends Thread {
 		this.terminar = true;
 
 		try {
-			Conexion.getInstance().getDis().close();
-			Conexion.getInstance().getDos().close();
-			Conexion.getInstance().getSocket().close();
+			conexion.getDis().close();
+			conexion.getDos().close();
+			conexion.getSocket().close();
 			
 //			this.dis.close();
 //			this.dos.close();
