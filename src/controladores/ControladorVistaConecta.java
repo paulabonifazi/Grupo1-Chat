@@ -17,6 +17,7 @@ public class ControladorVistaConecta implements ActionListener {
 
 	private IVistaConecta vistaConecta = null;
 	private Cliente cliente = null;
+	private ControladorVistaChat cont;
 
 	public ControladorVistaConecta(IVistaConecta vista) {
 		this.vistaConecta = vista;
@@ -51,7 +52,7 @@ public class ControladorVistaConecta implements ActionListener {
 
 	public void iniciaChat() {
 		IVistaChat vistaChat = new vistaChat();
-		ControladorVistaChat cont = new ControladorVistaChat(vistaChat);
+		cont = new ControladorVistaChat(vistaChat);
 		cont.setVistaChat(vistaChat);
 		cont.setCliente(this.cliente);
 
@@ -72,6 +73,18 @@ public class ControladorVistaConecta implements ActionListener {
 
 	public void ventanaEmergente(String mensaje) {
 		JOptionPane.showMessageDialog(null, mensaje);
+	}
+
+	public ControladorVistaChat getCont() {
+		return cont;
+	}
+
+	public void setCont(ControladorVistaChat cont) {
+		this.cont = cont;
+	}
+
+	public IVistaConecta getVistaConecta() {
+		return vistaConecta;
 	}
 
 }

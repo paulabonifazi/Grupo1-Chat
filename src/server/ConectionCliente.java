@@ -102,6 +102,7 @@ public class ConectionCliente extends Thread {
 									//seteamos los chats
 									this.chats.put(this.dataCliente.getNickname(), mensaje);
 									this.chats.put(mensaje, this.dataCliente.getNickname());
+									System.out.println("hasta aca llego");
 									this.sincronizacion.sincronizaServers();
 									//SincronizacionOut.sincronizarServer();
 									
@@ -113,7 +114,8 @@ public class ConectionCliente extends Thread {
 									this.clientes.get(mensaje).getDos().writeUTF(comando);
 									this.clientes.get(mensaje).getDos().flush();
 									this.cont.appendMensajes(dataCliente.getNickname()+" inició un chat con "+dataCliente.getNicknameReceptor());
-									
+									//this.sincronizacion.sincronizaServers();
+
 										
 								} else {
 									// no esta registrado el receptor
