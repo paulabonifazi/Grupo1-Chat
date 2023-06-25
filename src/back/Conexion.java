@@ -53,29 +53,29 @@ public class Conexion {
 //			return instance;
 //	}
 	
-//public void agregarSocket(String ip, int puerto) throws IOException{
-//		
-//	Socket s = new Socket(ip,puerto);
-//	
-//		if(socket == null) {
-//			socket = s;
-////			Socket s2 = new Socket(ip,puerto+1);	//hay al menos 2 servers
-////			this.sockets.add(s2);
-//		}
-//		
-//		this.sockets.add(s);
-//		System.out.println("Sockets: " + this.sockets);
-//		
-//	}
-//
-//	public void agregarSocket(Socket s) {
-//		
-//		if(socket == null) {
-//			socket = s;
-//		}
-//		this.sockets.add(socket);
-//		System.out.println("Sockets: " + this.sockets);
-//	}
+public void agregarSocket(String ip, int puerto) throws IOException{
+		
+	Socket s = new Socket(ip,puerto);
+	
+		if(socketServidor == null) {
+			socketServidor = s;
+//			Socket s2 = new Socket(ip,puerto+1);	//hay al menos 2 servers
+//			this.sockets.add(s2);
+		}
+		
+		this.sockets.add(s);
+		System.out.println("Sockets: " + this.sockets);
+		
+	}
+
+	public void agregarSocket(Socket s) {
+		
+		if(socketServidor == null) {
+			socketServidor = s;
+		}
+		this.sockets.add(socketServidor);
+		System.out.println("Sockets: " + this.sockets);
+	}
 	
     
 //	public void registrar(String nickname) throws IOException { //registramos al cliente en todos los servers

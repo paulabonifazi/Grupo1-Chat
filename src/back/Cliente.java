@@ -49,9 +49,9 @@ public class Cliente {
 		this.conexion=new Conexion();
 		// esto va en Conexion
 		conexion.setCliente(this);
-		conexion.cambiaServer();
-		//Conexion.getInstance().agregarSocket(iP, puerto);
-		//Conexion.getInstance().agregarSocket(iP, puerto+1);
+		conexion.agregarSocket(iP, puerto);
+		conexion.agregarSocket(iP, puerto+1);
+
 		
 	}
 

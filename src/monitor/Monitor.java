@@ -13,8 +13,8 @@ public class Monitor extends Thread {
 	private static ServerSocket serverSocketServidores;
 	private static ServerSocket serverSocketClientes;
 	
-	private static int puertoMonitorServidores = 11201;
-	private static int puertoMonitorClientes = 11201;
+	private static int puertoMonitorServidores = 11221;
+	private static int puertoMonitorClientes = 11111;
 	
 	private static int principal = 11001;
 	private static int nroSig = 0;
