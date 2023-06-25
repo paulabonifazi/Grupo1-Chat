@@ -13,7 +13,7 @@ public class Monitor extends Thread {
 	private static ServerSocket serverSocketServidores;
 	private static ServerSocket serverSocketClientes;
 	
-	private static int puertoMonitorServidores = 11201;
+	private static int puertoMonitorServidores = 10001;
 	private static int puertoMonitorClientes = 11201;
 	
 	private static int principal = 11001;
@@ -30,7 +30,7 @@ public class Monitor extends Thread {
 
 		try {
 			this.serverSocketServidores = new ServerSocket(this.puertoMonitorServidores);
-			this.serverSocketClientes = new ServerSocket(this.puertoMonitorClientes);
+			//this.serverSocketClientes = new ServerSocket(this.puertoMonitorClientes);
 			this.heartBeat = new HeartBeatMonitor();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -121,8 +121,8 @@ public class Monitor extends Thread {
 			try {
 				socketServer = this.serverSocketServidores.accept();
 				this.agregarSocket(socketServer);
-				socketCliente = this.serverSocketClientes.accept();
-				this.listaSocketsClientes.add(socketCliente);
+//				socketCliente = this.serverSocketClientes.accept();
+//				this.listaSocketsClientes.add(socketCliente);
 				
 			} catch (IOException e) {
 

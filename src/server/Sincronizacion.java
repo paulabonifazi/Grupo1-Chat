@@ -18,7 +18,7 @@ public class Sincronizacion extends Thread {
 
 	private int puertoLocal;
 	private int puertoPrincipal;
-	private int puertoMonitor = 11201;
+	private int puertoMonitor = 10001;
 
 	private String ipMonitor = "localhost";
 	private String ipServerPrincipal;
