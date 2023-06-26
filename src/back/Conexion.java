@@ -21,9 +21,11 @@ public class Conexion {
 	private Cliente cliente;
 	private int i = 1;
 	private ArrayList<Socket> sockets = new ArrayList<Socket>();
+	private ArrayList<Socket> socketsCaidos = new ArrayList<Socket>();
 	private boolean echo = false;
 	private boolean cambiaServer = false;
-
+	//private int condicion = 0;
+	
 	public Conexion() {
 
 	}
@@ -77,21 +79,39 @@ public class Conexion {
 	}
 
 	public synchronized void cambiaServer() {
-
-		try {
-			System.out.println("Hace socket con nuevo server");
-			socketServidor = new Socket(this.cliente.getiP(), this.cliente.getPuerto() + nro);
-			nro++;
-			this.registrar(this.cliente.getNickname());
-			if(this.cliente.getReceiveMessage() != null)
-				this.cliente.getReceiveMessage().recibirMensajes();
-			//this.cliente.getReceiveMessage().s
-			System.out.println("nro: " + nro);
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		
+		if (this.socketsCaidos.size()==0) {
+			try {
+				System.out.println("Hace socket con nuevo server");
+				if (socketServidor != null)
+					this.socketsCaidos.add(socketServidor);
+				
+				socketServidor = new Socket(this.cliente.getiP(), this.cliente.getPuerto() + nro);
+				nro++;
+				this.registrar(this.cliente.getNickname());
+				if(this.cliente.getReceiveMessage() != null)
+					this.cliente.getReceiveMessage().recibirMensajes();
+				//this.cliente.getReceiveMessage().s
+				System.out.println("nro: " + nro);
+				
+			} catch (UnknownHostException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		else {
+			socketServidor = this.socketsCaidos.get(0);
+			this.socketsCaidos.remove(0);
+			try {
+				socketServidor.close();
+				socketServidor = new Socket ("localhost", 1212);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+			
 	}
 
 	// ------------------------------------------------------ GETTERS

@@ -17,23 +17,27 @@ class HeartBeatServer extends Thread{
 		//this.dos  = new DataOutputStream(this.socketMonitor.getOutputStream());
 	}
 
-	public void run() {
-		
-		try {
-			dos = new DataOutputStream(socketMonitor.getOutputStream());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		while (Server.isTerminar() == false) {
+	public void iniciaThread() {
+		new Thread(() -> {
 			try {
-				dos.writeUTF(HEARTBEAT);
-				Thread.sleep(tiempo * 1000);
+				dos = new DataOutputStream(socketMonitor.getOutputStream());
 			} catch (IOException e) {
 				e.printStackTrace();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
 			}
-		}
+			
+			while (Server.isTerminar() == false) {
+				try {
+					dos.writeUTF(HEARTBEAT);
+					Thread.sleep(tiempo * 1000);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+        }).start();
+	}
+	public void run() {
+		
 	}
 }

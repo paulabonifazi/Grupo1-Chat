@@ -36,7 +36,7 @@ public class ControladorVistaServer implements ActionListener{
 			this.server.start();
 		}
 		else if (comando.equalsIgnoreCase("REINICIAR")) {
-			//reinicialo capo
+			this.server.getSincronizacion().getConectionMonitor().getHeartBeat().iniciaThread();
 		}
 		
 	}

@@ -37,16 +37,11 @@ public class Sincronizacion extends Thread {
 	public void conectaMonitor(){
 		try {
 			socketMonitor = new Socket(ipMonitor, puertoMonitor);
-
-
 			this.conectionMonitor = new ConectionMonitor(socketMonitor,this); // escucha al MONITOR
-	
 			DataInputStream dis = new DataInputStream(socketMonitor.getInputStream());
 			
-			this.puertoLocal = Integer.valueOf(dis.readUTF());
-			
+			this.puertoLocal = Integer.valueOf(dis.readUTF());		
 			this.ipServerPrincipal = dis.readUTF();
-
 			this.puertoPrincipal = Integer.valueOf(dis.readUTF());
 			this.rol = dis.readUTF();
 			System.out.println("Rol recibido: "+this.rol);
@@ -62,10 +57,12 @@ public class Sincronizacion extends Thread {
 			}
 			else {				
 				this.ss = new ServerSocket(puertoLocal);
-				this.conectionMonitor.iniciaHeartBeat();
+				this.conectionMonitor.getHeartBeat().iniciaThread();
 				this.start();
+				sinc = new SincronizacionEscucha(this);
 			}
-			this.conectionMonitor.start();
+			//this.conectionMonitor.start();
+			this.conectionMonitor.arrancaHilo();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -144,6 +141,14 @@ public class Sincronizacion extends Thread {
 
 	public void setSinc(SincronizacionEscucha sinc) {
 		this.sinc = sinc;
+	}
+
+	public ConectionMonitor getConectionMonitor() {
+		return conectionMonitor;
+	}
+
+	public void setConectionMonitor(ConectionMonitor conectionMonitor) {
+		this.conectionMonitor = conectionMonitor;
 	}
 
 	

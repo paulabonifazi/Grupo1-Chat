@@ -62,18 +62,12 @@ public class Server extends Thread {
 					this.clientes.put(nickname, dataCliente);
 					this.listaClientes.add(dataCliente);
 					
-//					if (i>0) {
-//						this.sincronizacion.getSinc().seteaClientes();
-//					}
-					//System.out.println("Lista Clientes: "+this.listaClientes.toString());
 					ConectionCliente conection = new ConectionCliente(s, dataCliente.getNickname(), this.clientes, dis, dos, this.chats,this.sincronizacion);
 					conection.setCont(controlador);
 					conection.start();
 					dos.writeUTF("1REGISTRADOCORRECTAMENTE");
 					controlador.appendListaConectados(dataCliente.toString());
-					// this.sincronizacion.sincronizarServer();
-//					if (this.sincronizacion.getSinc()!=null)
-//					this.sincronizacion.getSinc().seteaClientes();
+
 
 				} else {
 
@@ -161,6 +155,10 @@ public class Server extends Thread {
 
 	public static boolean isTerminar() {
 		return terminar;
+	}
+
+	public Sincronizacion getSincronizacion() {
+		return sincronizacion;
 	}
 
 	

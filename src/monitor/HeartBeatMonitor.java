@@ -20,25 +20,17 @@ public class HeartBeatMonitor extends Thread {
 		String comando = null;
 		super.run();
 
-//		try {
-//			dis = new DataInputStream(socket.getInputStream());
-//			dos = new DataOutputStream(socket.getOutputStream());
-//		} catch (IOException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
 		System.out.println("Monitor");
 		while (this.terminar == false) {
 
 			try {
 				this.socket = Monitor.getInstance().getSocketPrincipal();
 				dis = new DataInputStream(this.socket.getInputStream());
-				// dos = new DataOutputStream(this.socket.getOutputStream());
 				if (dis.available() > 0) {
 					comando = dis.readUTF();
 					System.out.println("Monitor recibio: "+comando);
 				}
-				//System.out.println("Monitor recibio: "+comando);
+				
 			} catch (IOException e) {
 
 				e.printStackTrace();

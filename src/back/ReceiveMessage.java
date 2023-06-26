@@ -46,7 +46,7 @@ public class ReceiveMessage extends Thread {
 
 			while (this.terminar == false) {
 				try {
-					System.out.println("LEgoooo");
+					//System.out.println("LEgoooo");
 					mensaje = this.conexion.getDis().readUTF();
 //					mensaje = dis.readUTF();
 					comando = mensaje.charAt(0);
