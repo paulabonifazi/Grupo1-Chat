@@ -68,7 +68,6 @@ public class Server extends Thread {
 					dos.writeUTF("1REGISTRADOCORRECTAMENTE");
 					controlador.appendListaConectados(dataCliente.toString());
 
-
 				} else {
 
 					dos.writeUTF("1USERREGISTRADO");

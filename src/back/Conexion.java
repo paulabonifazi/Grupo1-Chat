@@ -103,13 +103,6 @@ public class Conexion {
 		else {
 			socketServidor = this.socketsCaidos.get(0);
 			this.socketsCaidos.remove(0);
-			try {
-				socketServidor.close();
-				socketServidor = new Socket ("localhost", 1212);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 			
 	}
